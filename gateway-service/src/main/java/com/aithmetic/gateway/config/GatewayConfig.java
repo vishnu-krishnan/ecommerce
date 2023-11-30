@@ -17,12 +17,16 @@ public class GatewayConfig {
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder routeLocatorBuilder){
 
-        String productServiceUrl = environment.getProperty("product.service.url");
+        String ecommerceServiceUrl = environment.getProperty("ecommerce.service.url");
 
         return routeLocatorBuilder.routes()
                 .route("product-service", r->r
                         .path("/product/**")
-                        .uri(productServiceUrl))
+                        .uri(ecommerceServiceUrl))
+                .route("order-service", r->r
+                        .path("/order/**")
+                        .uri(ecommerceServiceUrl))
                 .build();
+
     }
 }

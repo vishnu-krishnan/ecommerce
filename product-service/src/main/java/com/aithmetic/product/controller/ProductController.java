@@ -19,13 +19,13 @@ public class ProductController {
     @Autowired
     private final ProductService productService;
 
-    @PostMapping
+    @PostMapping(value = "create")
     public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest){
         productService.createProduct(productRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
     }
 
-    @GetMapping
+    @GetMapping(value = "getall")
     public ResponseEntity<Object> getAllProducts() {
         try {
             List<ProductResponse> products = productService.getAllProducts();

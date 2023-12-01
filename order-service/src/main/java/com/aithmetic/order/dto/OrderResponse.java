@@ -15,8 +15,8 @@ import java.time.LocalDateTime;
 public class OrderResponse {
 
     private String id;
-    private Long customerId;
-    private Long productId;
+    private String customerId;
+    private String productId;
     private String productName;
     private int quantity;
     private BigDecimal unitPrice;

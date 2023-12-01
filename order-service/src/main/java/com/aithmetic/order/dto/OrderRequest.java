@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OrderRequest {
 
-    private Long customerId;
-    private Long productId;
+    private String customerId;
+    private String productId;
     private String productName;
     private int quantity;
     private BigDecimal unitPrice;

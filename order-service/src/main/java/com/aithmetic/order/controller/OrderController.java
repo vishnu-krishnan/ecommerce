@@ -5,6 +5,7 @@ import com.aithmetic.order.dto.OrderResponse;
 import com.aithmetic.order.model.Order;
 import com.aithmetic.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/order")
 @RequiredArgsConstructor
+@Slf4j
 public class OrderController {
 
     @Autowired
@@ -23,8 +25,13 @@ public class OrderController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<String> createProduct(@RequestBody OrderRequest orderRequest){
-        orderService.createOrder(orderRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Order created successfully");
+        try {
+            orderService.createOrder(orderRequest);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Order created successfully");
+        }catch (Exception e){
+            log.error("Exception occurred while creating Order: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());
+        }
     }
 
     @GetMapping(value = "/get-all")
@@ -36,7 +43,8 @@ public class OrderController {
             }
             return ResponseEntity.ok(orderResponses);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occured while retrieving orders"+e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occured while retrieving order" +
+                    "s"+e.getMessage());
         }
     }
 }

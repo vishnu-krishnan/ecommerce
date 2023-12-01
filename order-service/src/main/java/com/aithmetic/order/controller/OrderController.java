@@ -27,10 +27,13 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Order created successfully");
     }
 
-    @GetMapping(value = "/getall")
+    @GetMapping(value = "/get-all")
     public ResponseEntity<Object> getAllOrders(){
         try{
             List<OrderResponse> orderResponses = orderService.getAllOrders();
+            if (orderResponses.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No data available");
+            }
             return ResponseEntity.ok(orderResponses);
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occured while retrieving orders"+e.getMessage());

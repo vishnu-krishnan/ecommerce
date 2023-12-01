@@ -2,15 +2,11 @@ package com.aithmetic.customer.service;
 
 import com.aithmetic.customer.dto.CustomerRequest;
 import com.aithmetic.customer.dto.CustomerResponse;
-import com.aithmetic.customer.exception.ValidateRequestBody;
-import com.aithmetic.customer.exception.ValidationCheckException;
 import com.aithmetic.customer.model.Customer;
 import com.aithmetic.customer.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +18,16 @@ public class CustomerService {
 
     @Autowired
     private final CustomerRepository customerRepository;
+
+    @Autowired
     private final ValidateRequestBody validateRequestBody;
+
+    @Autowired
+    private final ValidateCustomerExist validateCustomerExist;
 
     public void createCustomer(CustomerRequest customerRequest){
         log.debug("Create request : {}" ,customerRequest);
-        validateCustomerExists(customerRequest);
+        validateCustomerExist.validateCustomerExists(customerRequest);
         validateRequestBody.customerFieldsValidation(customerRequest);
 
         Customer customer = Customer.builder()
@@ -60,14 +61,5 @@ public class CustomerService {
                 .dateOfBirth(customer.getDateOfBirth())
                 .gender(customer.getGender())
                 .build();
-    }
-
-    public void validateCustomerExists(CustomerRequest customerRequest) {
-        if (customerRepository.existsByUsername(customerRequest.getUsername())) {
-            throw new IllegalArgumentException("Username is already in use. Please choose a different username.");
-        }
-        if (customerRepository.existsByEmail(customerRequest.getEmail())) {
-            throw new IllegalArgumentException("Email is already in use. Please choose a different email.");
-        }
     }
 }

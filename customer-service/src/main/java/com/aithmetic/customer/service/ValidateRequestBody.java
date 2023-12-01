@@ -1,7 +1,8 @@
-package com.aithmetic.customer.exception;
+package com.aithmetic.customer.service;
 
 
 import com.aithmetic.customer.dto.CustomerRequest;
+import com.aithmetic.customer.exception.ValidationCheckException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 

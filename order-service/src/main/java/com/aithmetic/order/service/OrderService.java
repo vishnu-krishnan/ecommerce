@@ -29,7 +29,6 @@ public class OrderService {
 
         log.debug("Create request : {}" ,orderRequest);
         validateOrderRequestBody.orderFieldsValidation(orderRequest);
-        //validateOrderExist.validateOrderExists(orderRequest);
         Order order = Order.builder()
                 .customerId(orderRequest.getCustomerId())
                 .productId(orderRequest.getProductId())

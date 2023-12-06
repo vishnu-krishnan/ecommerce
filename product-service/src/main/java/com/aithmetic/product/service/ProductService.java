@@ -9,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -27,6 +30,7 @@ public class ProductService {
     {
         validateProductRequestBody.validateProductRequestBody(productRequest);
         Product product = Product.builder()
+                .productId(productRequest.getProductId())
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .price(productRequest.getPrice())
@@ -35,15 +39,28 @@ public class ProductService {
         productRepository.save(product);
         log.info("Product {} is saved",product);
     }
-
     public List<ProductResponse> getAllProducts() {
        List<Product> products =  productRepository.findAll();
-        log.error("No products");
-       return products.stream().map(product -> mapToProductResponse(product)).toList();
+        if (products.isEmpty()) {
+            log.error("No products found");
+        }
+       return products.stream().map(this::mapToProductResponse).toList();
     }
+    public List<ProductResponse> getProduct(String productId) {
+        log.info("product by id : {}",productRepository.findAll());
+        List<Product> products = productRepository.findByProductId(productId);
 
+        if (!products.isEmpty()) {
+            log.info("Product is available");
+            return products.stream().map(this::mapToProductResponse).collect(Collectors.toList());
+        } else {
+            log.debug("No products found for productId: {}", productId);
+            return Collections.emptyList();
+        }
+    }
     private ProductResponse mapToProductResponse(Product product) {
         return ProductResponse.builder()
+                .productId(product.getProductId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())

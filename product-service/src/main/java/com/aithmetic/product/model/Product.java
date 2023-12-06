@@ -21,11 +21,11 @@ import java.math.BigInteger;
 public class Product {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+
+    private String productId;
     private String name;
     private String description;
     private BigDecimal price;
     private BigInteger quantity;
-
 }

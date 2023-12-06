@@ -24,7 +24,8 @@ public class ProductController {
     @PostMapping(value = "/create")
     public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest){
         productService.createProduct(productRequest);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Product created successfully");
+        String responseMessage = String.format("Product %s created successfully",productRequest.getName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseMessage);
     }
 
     @GetMapping(value = "/get-all")
@@ -37,6 +38,19 @@ public class ProductController {
             return ResponseEntity.ok(productResponses);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching products: "+e.getMessage());
+        }
+    }
+
+    @GetMapping(value = "/get/{productId}")
+    public ResponseEntity<Object> getProduct(@PathVariable String productId){
+        try{
+            List<ProductResponse> productResponses = productService.getProduct(productId);
+            if (productResponses.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not available");
+            }
+            return ResponseEntity.ok(productResponses);
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error fetching product: "+e.getMessage());
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.aithmetic.product;
+package com.aithmetic.product.exception;
 
 public class ValidationCheckException extends RuntimeException{
     public ValidationCheckException(String message){

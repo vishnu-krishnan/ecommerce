@@ -1,6 +1,6 @@
 package com.aithmetic.product.service;
 
-import com.aithmetic.product.ValidationCheckException;
+import com.aithmetic.product.exception.ValidationCheckException;
 import com.aithmetic.product.dto.ProductRequest;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +10,7 @@ import java.math.BigInteger;
 public class ValidateProductRequestBody {
 
     public void validateProductRequestBody(ProductRequest productRequest){
+        validateNotBlank("Product id", productRequest.getProductId());
         validateNotBlank("Product name", productRequest.getName());
         validateNotBlank("Product description", productRequest.getDescription());
         validateNotNull("Price", productRequest.getPrice());
@@ -21,7 +22,7 @@ public class ValidateProductRequestBody {
         }
     }
     private void validateNotZero(String fieldName, BigInteger value) {
-        if (value.compareTo(BigInteger.ZERO) == 0) {
+        if (value == null || value.compareTo(BigInteger.ZERO) == 0) {
             throw new ValidationCheckException(fieldName + " must not be zero");
         }
     }

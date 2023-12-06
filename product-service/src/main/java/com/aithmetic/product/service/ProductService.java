@@ -47,7 +47,6 @@ public class ProductService {
        return products.stream().map(this::mapToProductResponse).toList();
     }
     public List<ProductResponse> getProduct(String productId) {
-        log.info("product by id : {}",productRepository.findAll());
         List<Product> products = productRepository.findByProductId(productId);
 
         if (!products.isEmpty()) {
@@ -64,6 +63,22 @@ public class ProductService {
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())
+                .quantity(product.getQuantity())
                 .build();
     }
+
+    public boolean checkProductQuantity(String productId, int requestedQuantity) {
+        log.debug("checking product quantity");
+        List<Product> productDetail = productRepository.findByProductId(productId);
+        if (!productDetail.isEmpty()) {
+            Product product = productDetail.get(0);
+            int availableQuantity = product.getQuantity();
+            log.info("Product {} has {} units available", productId, availableQuantity);
+            return availableQuantity >= requestedQuantity;
+        } else {
+            log.debug("No product found for productId: {}", productId);
+            return false;
+        }
+    }
+
 }

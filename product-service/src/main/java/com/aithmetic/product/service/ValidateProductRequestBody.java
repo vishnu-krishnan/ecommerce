@@ -21,8 +21,8 @@ public class ValidateProductRequestBody {
             throw new ValidationCheckException(fieldName + " must not be blank");
         }
     }
-    private void validateNotZero(String fieldName, BigInteger value) {
-        if (value == null || value.compareTo(BigInteger.ZERO) == 0) {
+    private void validateNotZero(String fieldName, Integer value) {
+        if (value == 0) {
             throw new ValidationCheckException(fieldName + " must not be zero");
         }
     }

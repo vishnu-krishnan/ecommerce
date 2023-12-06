@@ -43,7 +43,7 @@ public class OrderController {
             }
             return ResponseEntity.ok(orderResponses);
         } catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occured while retrieving order" +
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occurred while retrieving order" +
                     "s"+e.getMessage());
         }
     }

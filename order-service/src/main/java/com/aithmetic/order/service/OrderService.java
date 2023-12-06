@@ -2,8 +2,10 @@ package com.aithmetic.order.service;
 
 import com.aithmetic.order.dto.OrderRequest;
 import com.aithmetic.order.dto.OrderResponse;
+import com.aithmetic.order.exception.ProductOutOfStockException;
 import com.aithmetic.order.model.Order;
 import com.aithmetic.order.repository.OrderRepository;
+import com.aithmetic.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,24 +27,34 @@ public class OrderService {
     @Autowired
     private final ValidateOrderRequestBody validateOrderRequestBody;
 
+    @Autowired
+    private final ProductService productService;
+
     public void createOrder(OrderRequest orderRequest){
 
-        log.debug("Create request : {}" ,orderRequest);
-        validateOrderRequestBody.orderFieldsValidation(orderRequest);
-        Order order = Order.builder()
-                .customerId(orderRequest.getCustomerId())
-                .productId(orderRequest.getProductId())
-                .productName(orderRequest.getProductName())
-                .quantity(orderRequest.getQuantity())
-                .unitPrice(orderRequest.getUnitPrice())
-                .totalPrice(orderRequest.getTotalPrice())
-                .orderDate(orderRequest.getOrderDate())
-                .shippingAddress(orderRequest.getShippingAddress())
-                .shippingMethod(orderRequest.getShippingMethod())
-                .orderStatus(orderRequest.getOrderStatus())
-                .build();
-        orderRepository.save(order);
-        log.info("Order {} is saved",order);
+        if(!productService.checkProductQuantity(orderRequest.getProductName(), orderRequest.getQuantity())){
+            log.info("Product is out of stock for product {} and requested quantity {}" ,orderRequest.getProductName(),orderRequest.getQuantity());
+            throw new ProductOutOfStockException("Product is out of stock");
+
+        }
+        else {
+            log.debug("Create request : {}", orderRequest);
+            validateOrderRequestBody.orderFieldsValidation(orderRequest);
+            Order order = Order.builder()
+                    .customerId(orderRequest.getCustomerId())
+                    .productId(orderRequest.getProductId())
+                    .productName(orderRequest.getProductName())
+                    .quantity(orderRequest.getQuantity())
+                    .unitPrice(orderRequest.getUnitPrice())
+                    .totalPrice(orderRequest.getTotalPrice())
+                    .orderDate(orderRequest.getOrderDate())
+                    .shippingAddress(orderRequest.getShippingAddress())
+                    .shippingMethod(orderRequest.getShippingMethod())
+                    .orderStatus(orderRequest.getOrderStatus())
+                    .build();
+            orderRepository.save(order);
+            log.info("Order {} is saved", order);
+        }
     }
 
     public List<OrderResponse> getAllOrders() {

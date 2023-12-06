@@ -20,15 +20,15 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
 
     @Autowired
-    private final ValidateRequestBody validateRequestBody;
+    private final ValidateCustomerRequestBody validateCustomerRequestBody;
 
     @Autowired
     private final ValidateCustomerExist validateCustomerExist;
 
     public void createCustomer(CustomerRequest customerRequest){
         log.debug("Create request : {}" ,customerRequest);
+        validateCustomerRequestBody.customerFieldsValidation(customerRequest);
         validateCustomerExist.validateCustomerExists(customerRequest);
-        validateRequestBody.customerFieldsValidation(customerRequest);
 
         Customer customer = Customer.builder()
                 .firstName(customerRequest.getFirstName())

@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidateRequestBody {
+public class ValidateCustomerRequestBody {
 
     public void customerFieldsValidation(CustomerRequest customerRequest){
 

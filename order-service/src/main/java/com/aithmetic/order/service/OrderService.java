@@ -19,8 +19,17 @@ public class OrderService {
     @Autowired
     private final OrderRepository orderRepository;
 
+    @Autowired
+    private final ValidateOrderExist validateOrderExist;
+
+    @Autowired
+    private final ValidateOrderRequestBody validateOrderRequestBody;
+
     public void createOrder(OrderRequest orderRequest){
 
+        log.debug("Create request : {}" ,orderRequest);
+        validateOrderRequestBody.orderFieldsValidation(orderRequest);
+        //validateOrderExist.validateOrderExists(orderRequest);
         Order order = Order.builder()
                 .customerId(orderRequest.getCustomerId())
                 .productId(orderRequest.getProductId())
@@ -34,7 +43,7 @@ public class OrderService {
                 .orderStatus(orderRequest.getOrderStatus())
                 .build();
         orderRepository.save(order);
-        log.info("Product {} is saved",order);
+        log.info("Order {} is saved",order);
     }
 
     public List<OrderResponse> getAllOrders() {

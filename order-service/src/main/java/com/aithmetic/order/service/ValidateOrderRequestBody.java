@@ -1,17 +1,14 @@
 package com.aithmetic.order.service;
 
 
-import com.aithmetic.customer.dto.orderRequest;
-import com.aithmetic.customer.exception.ValidationCheckException;
-import com.aithmetic.order.dto.OrderRequest;
 import com.aithmetic.order.exception.ValidationCheckException;
-import org.apache.commons.lang3.StringUtils;
+import com.aithmetic.order.dto.OrderRequest;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidateRequestBody {
+public class ValidateOrderRequestBody {
 
-    public void customerFieldsValidation(OrderRequest orderRequest) {
+    public void orderFieldsValidation(OrderRequest orderRequest) {
 
         validateNotBlank("Customer ID", orderRequest.getCustomerId());
         validateNotBlank("Product ID", orderRequest.getProductId());

@@ -27,7 +27,7 @@ public class OrderController {
     public ResponseEntity<String> createProduct(@RequestBody OrderRequest orderRequest){
         try {
             orderService.createOrder(orderRequest);
-            return ResponseEntity.status(HttpStatus.CREATED).body("Order created successfully");
+            return ResponseEntity.status(HttpStatus.CREATED).body("Order placed successfully");
         }catch (Exception e){
             log.error("Exception occurred while creating Order: {}", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating order: " + e.getMessage());

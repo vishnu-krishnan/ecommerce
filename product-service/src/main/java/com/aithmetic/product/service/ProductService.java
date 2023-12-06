@@ -19,14 +19,19 @@ public class ProductService {
     @Autowired
     private final ProductRepository productRepository;
 
+    @Autowired
+    private final ValidateProductRequestBody validateProductRequestBody;
+
+
     public void createProduct(ProductRequest productRequest)
     {
+        validateProductRequestBody.validateProductRequestBody(productRequest);
         Product product = Product.builder()
                 .name(productRequest.getName())
                 .description(productRequest.getDescription())
                 .price(productRequest.getPrice())
+                .quantity(productRequest.getQuantity())
                 .build();
-
         productRepository.save(product);
         log.info("Product {} is saved",product);
     }
@@ -39,7 +44,6 @@ public class ProductService {
 
     private ProductResponse mapToProductResponse(Product product) {
         return ProductResponse.builder()
-                .id(product.getId())
                 .name(product.getName())
                 .description(product.getDescription())
                 .price(product.getPrice())

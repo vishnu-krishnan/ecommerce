@@ -1,6 +1,7 @@
 package com.aithmetic.gateway.config;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;
@@ -15,17 +16,22 @@ public class GatewayConfig {
     private Environment environment;
 
     @Bean
-    public RouteLocator customRouteLocator(RouteLocatorBuilder routeLocatorBuilder){
+    public RouteLocator customRouteLocator(@NotNull RouteLocatorBuilder routeLocatorBuilder){
 
-        String ecommerceServiceUrl = environment.getProperty("ecommerce.service.url");
+        String customerServiceUrl = environment.getProperty("customer.service.url");
+        String productServiceUrl = environment.getProperty("product.service.url");
+        String orderServiceUrl = environment.getProperty("order.service.url");
 
         return routeLocatorBuilder.routes()
+                .route("customer-service", r->r
+                        .path("/customer/**")
+                        .uri(customerServiceUrl))
                 .route("product-service", r->r
                         .path("/product/**")
-                        .uri(ecommerceServiceUrl))
+                        .uri(productServiceUrl))
                 .route("order-service", r->r
                         .path("/order/**")
-                        .uri(ecommerceServiceUrl))
+                        .uri(orderServiceUrl))
                 .build();
 
     }

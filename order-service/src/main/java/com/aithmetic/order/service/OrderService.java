@@ -5,7 +5,7 @@ import com.aithmetic.order.dto.OrderResponse;
 import com.aithmetic.order.exception.ProductOutOfStockException;
 import com.aithmetic.order.model.Order;
 import com.aithmetic.order.repository.OrderRepository;
-import com.aithmetic.product.service.ProductService;
+import com.aithmetic.product.service.ProductInventory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +28,12 @@ public class OrderService {
     private final ValidateOrderRequestBody validateOrderRequestBody;
 
     @Autowired
-    private final ProductService productService;
+    private final ProductInventory productInventory;
 
     public void createOrder(OrderRequest orderRequest){
 
-        if(!productService.checkProductQuantity(orderRequest.getProductName(), orderRequest.getQuantity())){
-            log.info("Product is out of stock for product {} and requested quantity {}" ,orderRequest.getProductName(),orderRequest.getQuantity());
+        if(!productInventory.checkProductQuantity(orderRequest.getProductId(), orderRequest.getQuantity())){
+            log.info("Product is out of stock for product {} and requested quantity {}" ,orderRequest.getProductId(),orderRequest.getQuantity());
             throw new ProductOutOfStockException("Product is out of stock");
 
         }

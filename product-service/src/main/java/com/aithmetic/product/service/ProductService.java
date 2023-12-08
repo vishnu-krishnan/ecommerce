@@ -67,18 +67,6 @@ public class ProductService {
                 .build();
     }
 
-    public boolean checkProductQuantity(String productId, int requestedQuantity) {
-        log.debug("checking product quantity");
-        List<Product> productDetail = productRepository.findByProductId(productId);
-        if (!productDetail.isEmpty()) {
-            Product product = productDetail.get(0);
-            int availableQuantity = product.getQuantity();
-            log.info("Product {} has {} units available", productId, availableQuantity);
-            return availableQuantity >= requestedQuantity;
-        } else {
-            log.debug("No product found for productId: {}", productId);
-            return false;
-        }
-    }
+
 
 }

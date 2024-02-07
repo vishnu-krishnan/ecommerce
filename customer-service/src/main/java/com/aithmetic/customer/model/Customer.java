@@ -1,20 +1,17 @@
 package com.aithmetic.customer.model;
 
 import com.aithmetic.order.model.Order;
-import jakarta.mail.Address;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
+import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Document (value = "customer")
+@Entity
+@Table(name = "customer")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,20 +20,24 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String customerId;
+    private Long id;
 
     // Basic Information
+    private String customerId;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
     private String password;
+
     private Date dateOfBirth;
     private String gender;
 
-    // Contact Information
+    // Address will be stored as JSON in a TEXT column
+    @Column(columnDefinition = "TEXT")
+    private String address;
+
     private String phoneNumber;
-    private Address address;
 
     // Account Details
     private Date accountCreationDate;
@@ -49,6 +50,7 @@ public class Customer {
     private String communicationPreferences;
 
     // Order History
+    @OneToMany(mappedBy = "customer")
     private List<Order> orderHistory;
 
     // Security Information
@@ -74,5 +76,4 @@ public class Customer {
 
     // Authentication Tokens
     private String oauthToken;
-
 }

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce
+    username: root
+    password: Root@123
+liquibase:
+  changeLog: classpath:changeLog/master.xml
+liquibaseRollback:
+  file: /home/vishnu/WORKS/TRAINING/SPRINGBOOT_APPS/ecommerce/db/rollback_script-#{new java.text.SimpleDateFormat("yyyyMMdd'_'HHmmss").format(new java.util.Date())}.sql

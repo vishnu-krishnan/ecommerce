@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <changeSet id="001" author="vishnu">
+        <createTable tableName="customer">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer_id" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(255)"/>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="date_of_birth" type="DATE"/>
+            <column name="gender" type="VARCHAR(10)"/>
+            <column name="address" type="TEXT"/>
+            <column name="phone_number" type="VARCHAR(20)"/>
+            <column name="account_creation_date" type="DATE"/>
+            <column name="last_login_date" type="DATE"/>
+            <column name="account_status" type="VARCHAR(20)"/>
+            <column name="preferred_language" type="VARCHAR(20)"/>
+            <column name="currency_preference" type="VARCHAR(20)"/>
+            <column name="communication_preferences" type="VARCHAR(20)"/>
+            <column name="two_factor_authentication" type="BOOLEAN"/>
+            <column name="security_question" type="VARCHAR(255)"/>
+            <column name="security_answer" type="VARCHAR(255)"/>
+            <column name="linked_social_media_accounts" type="VARCHAR(255)"/>
+            <column name="newsletter_subscription" type="BOOLEAN"/>
+            <column name="membership_status" type="VARCHAR(20)"/>
+            <column name="profile_picture_url" type="VARCHAR(255)"/>
+            <column name="notification_preferences" type="VARCHAR(255)"/>
+            <column name="push_notification_settings" type="VARCHAR(255)"/>
+            <column name="oauth_token" type="VARCHAR(255)"/>
+
+            <!-- Add other columns as needed -->
+
+        </createTable>
+    </changeSet>
+
+    <!-- Rollback steps -->
+    <changeSet id="rollback-create-customer-table" author="vishnu">
+        <dropTable tableName="customer"/>
+    </changeSet>
+
+</databaseChangeLog>

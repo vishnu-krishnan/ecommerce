@@ -6,4 +6,4 @@ spring:
 liquibase:
   changeLog: classpath:changeLog/master.product.xml
 liquibaseRollback:
-  file: /home/vishnu/WORKS/TRAINING/SPRINGBOOT_APPS/ecommerce/db/rollback_script-#{new java.text.SimpleDateFormat("yyyyMMdd'_'HHmmss").format(new java.util.Date())}.sql
+  file: /home/vishnu/WORKS/TRAINING/SPRINGBOOT_APPS/ecommerce/db-backups/rollback_script-#{new java.text.SimpleDateFormat("yyyyMMdd'_'HHmmss").format(new java.util.Date())}.sql

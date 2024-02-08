@@ -42,7 +42,7 @@
     </changeSet>
 
     <!-- Rollback steps -->
-    <changeSet id="rollback-create-customer-table" author="vishnu">
+    <changeSet id="002" author="vishnu">
         <dropTable tableName="customer"/>
     </changeSet>
 

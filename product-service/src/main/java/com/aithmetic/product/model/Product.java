@@ -1,19 +1,20 @@
 package com.aithmetic.product.model;
 
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.persistence.Id;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
-@Document(value = "product")
+@Entity
+@Table(name = "product")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -21,7 +22,8 @@ import java.math.BigInteger;
 public class Product {
 
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     private String productId;
     private String name;

@@ -1,16 +1,18 @@
 package com.aithmetic.order.model;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 
-@Document(value = "order")
+@Entity
+@Table(name = "order")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -19,7 +21,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     private String customerId;
 

@@ -4,6 +4,8 @@ import com.aithmetic.customer.dto.CustomerRequest;
 import com.aithmetic.customer.dto.CustomerResponse;
 import com.aithmetic.customer.model.Customer;
 import com.aithmetic.customer.repository.CustomerRepository;
+import com.aithmetic.order.model.Order;
+import com.aithmetic.order.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,9 @@ public class CustomerService {
 
     @Autowired
     private final ValidateCustomerExist validateCustomerExist;
+
+    @Autowired
+    private final OrderService orderService;
 
     public void createCustomer(CustomerRequest customerRequest){
         log.debug("Create request : {}" ,customerRequest);
@@ -61,5 +66,13 @@ public class CustomerService {
                 .dateOfBirth(customer.getDateOfBirth())
                 .gender(customer.getGender())
                 .build();
+    }
+
+    public Customer getCustomer(Long customerId) {
+        return customerRepository.findById(customerId).orElse(null);
+    }
+
+    public List<Order> getOrderHistory(Long customerId) {
+        return orderService.getOrderHistoryByCustomerId(customerId);
     }
 }

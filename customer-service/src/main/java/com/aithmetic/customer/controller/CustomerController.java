@@ -2,6 +2,7 @@ package com.aithmetic.customer.controller;
 
 import com.aithmetic.customer.dto.CustomerRequest;
 import com.aithmetic.customer.dto.CustomerResponse;
+import com.aithmetic.customer.model.Customer;
 import com.aithmetic.customer.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +35,7 @@ public class CustomerController {
     }
 
     @GetMapping
-    @RequestMapping(value = "/get-all")
+    @RequestMapping(value = "/getall")
     public ResponseEntity<Object> getAllCustomers(){
         try {
             List<CustomerResponse> customerResponses = customerService.getAllCustomers();
@@ -46,5 +47,11 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Exception occured while retrieving orde" +
                     "rs: "+e.getMessage());
         }
+    }
+
+    @GetMapping("/{customerId}")
+    public ResponseEntity<Customer> getCustomer(@PathVariable Long customerId) {
+        Customer customer = customerService.getCustomer(customerId);
+        return ResponseEntity.ok(customer);
     }
 }

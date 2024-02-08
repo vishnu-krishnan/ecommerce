@@ -10,7 +10,7 @@ public class ValidateOrderRequestBody {
 
     public void orderFieldsValidation(OrderRequest orderRequest) {
 
-        validateNotBlank("Customer ID", orderRequest.getCustomerId());
+        validateNotNull("Customer ID", orderRequest.getCustomerId());
         validateNotBlank("Product ID", orderRequest.getProductId());
         validateNotBlank("Product Name", orderRequest.getProductName());
         validateNotZero("Quantity", orderRequest.getQuantity());

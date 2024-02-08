@@ -77,4 +77,9 @@ public class OrderService {
                 .orderStatus(order.getOrderStatus())
                 .build();
     }
+
+    public List<Order> getOrderHistoryByCustomerId(Long customerId) {
+        // Implement logic to fetch order history for the given customerId
+        return orderRepository.findByCustomerId(customerId);
+    }
 }

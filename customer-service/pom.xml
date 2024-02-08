@@ -78,17 +78,11 @@
 <!--			<artifactId>liquibase-hibernate5</artifactId> &lt;!&ndash; For Hibernate 5 &ndash;&gt;-->
 <!--			<version>4.24.0</version> &lt;!&ndash; Use the version compatible with your Hibernate version &ndash;&gt;-->
 <!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.liquibase.ext</groupId>-->
-<!--			<artifactId>liquibase-hibernate5</artifactId> &lt;!&ndash; For Hibernate 5 &ndash;&gt;-->
-<!--			<version>4.1.1</version> &lt;!&ndash; Use the version compatible with your Hibernate version &ndash;&gt;-->
-<!--		</dependency>-->
 
 		<dependency>
 			<groupId>com.aithmetic</groupId>
 			<artifactId>order-service</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 

@@ -1,11 +1,7 @@
 package com.aithmetic.order.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,20 +20,18 @@ public class Order {
     private Long id;
 
     private String customerId;
-
     private String productId;
     private String productName;
 
-    private int quantity;
+    /*@ManyToOne // Many orders belong to one customer //removed circular dependency
+    @JoinColumn(name = "customer_id") // Specify the foreign key column
+    private Customer customer;*/
 
+    private int quantity;
     private BigDecimal unitPrice;
     private BigDecimal totalPrice;
-
     private LocalDateTime orderDate;
-
     private String shippingAddress;
     private String shippingMethod;
-
     private String orderStatus;
-
 }

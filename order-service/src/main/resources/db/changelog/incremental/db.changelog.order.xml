@@ -20,11 +20,17 @@
             <column name="shipping_method" type="VARCHAR(255)"/>
             <column name="order_status" type="VARCHAR(20)"/>
         </createTable>
-    </changeSet>
+        <!-- Log statement -->
+        <comment>Print statement</comment>
+        <sql dbms="mysql">
+            <![CDATA[
+                SELECT 'Table creation successful' AS message;
+            ]]>
+        </sql>
 
-    <!-- Rollback steps -->
-    <changeSet id="002" author="vishnu">
-        <dropTable tableName="order"/>
+        <rollback>
+            <dropTable tableName="order"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

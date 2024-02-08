@@ -35,15 +35,10 @@
             <column name="notification_preferences" type="VARCHAR(255)"/>
             <column name="push_notification_settings" type="VARCHAR(255)"/>
             <column name="oauth_token" type="VARCHAR(255)"/>
-
-            <!-- Add other columns as needed -->
-
         </createTable>
-    </changeSet>
-
-    <!-- Rollback steps -->
-    <changeSet id="002" author="vishnu">
-        <dropTable tableName="customer"/>
+        <rollback>
+            <dropTable tableName="customer"/>
+        </rollback>
     </changeSet>
 
 </databaseChangeLog>

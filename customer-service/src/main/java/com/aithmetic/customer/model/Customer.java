@@ -6,7 +6,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
@@ -49,9 +55,9 @@ public class Customer {
     private String currencyPreference;
     private String communicationPreferences;
 
-    // Order History
-    @OneToMany(mappedBy = "customer")
-    private List<Order> orderHistory;
+    /* //Order History -- removing circular dependency
+    @OneToMany(mappedBy = "customerId")
+    private List<Order> orderHistory;*/
 
     // Security Information
     private boolean twoFactorAuthentication;

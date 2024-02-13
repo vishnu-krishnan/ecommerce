@@ -29,7 +29,7 @@ class ProductServiceApplicationTests {
 	private static final Logger logger = LoggerFactory.getLogger(ProductServiceApplicationTests.class);
 
 	@Container
-	static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.0.26")
+	static MySQLContainer<?> mySQLContainer = new MySQLContainer<>("mysql:8.3.0")
 			.withDatabaseName("ecommerce")
 			.withUsername("root")
 			.withPassword("Root@123");

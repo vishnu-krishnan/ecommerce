@@ -17,7 +17,7 @@ public class ValidateProductRequestBody {
         validateNotZero("Quantity", productRequest.getQuantity());
     }
     private void validateNotBlank(String fieldName, String value) {
-        if (value == null || value.trim().isEmpty()) {
+        if (isBlank(value)) {
             throw new ValidationCheckException(fieldName + " must not be blank");
         }
     }
@@ -30,5 +30,8 @@ public class ValidateProductRequestBody {
         if (value == null) {
             throw new ValidationCheckException(fieldName + " must not be null");
         }
+    }
+    private boolean isBlank(String value) {
+        return value == null || value.trim().isEmpty();
     }
 }

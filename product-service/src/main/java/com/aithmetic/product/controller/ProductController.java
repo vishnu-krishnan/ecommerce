@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/product")
-@RequiredArgsConstructor
+@RequestMapping(value = ProductController.BASE_URL)@RequiredArgsConstructor
 @Slf4j
 public class ProductController {
+    public static final String BASE_URL = "/product";
 
     @Autowired
     private final ProductService productService;

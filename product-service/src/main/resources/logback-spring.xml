@@ -1,7 +1,5 @@
 <configuration>
-
-<!--    <property name="log.path" value="${log.path}" />-->
-
+    <springProperty scope="context" name="log.path" source="log.path"/>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg%n</pattern>
@@ -9,10 +7,10 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/customer-service.log</file>
+        <file>${log.path}/product-service.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/customer-service-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <fileNamePattern>${log.path}/product-service-%d{yyyy-MM-dd}.log</fileNamePattern>
         </rollingPolicy>
 
         <encoder>

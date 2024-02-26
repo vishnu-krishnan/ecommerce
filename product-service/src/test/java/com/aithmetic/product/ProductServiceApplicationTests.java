@@ -39,7 +39,9 @@ class ProductServiceApplicationTests {
 
 	@DynamicPropertySource
 	static void setProperties(DynamicPropertyRegistry dynamicPropertyRegistry) {
-		String jdbcUrl = mySQLContainer.getJdbcUrl();
+		String jdbcUrl = "jdbc:mysql://localhost:" + mySQLContainer.getMappedPort(3306) + "/ecommerce";
+
+		//String jdbcUrl = mySQLContainer.getJdbcUrl();
 		String username = mySQLContainer.getUsername();
 		String password = mySQLContainer.getPassword();
 

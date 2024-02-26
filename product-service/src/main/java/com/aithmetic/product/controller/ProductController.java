@@ -3,9 +3,9 @@ package com.aithmetic.product.controller;
 import com.aithmetic.product.dto.ProductRequest;
 import com.aithmetic.product.dto.ProductResponse;
 import com.aithmetic.product.service.ProductService;
-import lombok.RequiredArgsConstructor;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +14,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = ProductController.BASE_URL)
-@RequiredArgsConstructor
 @Slf4j
 public class ProductController {
     public static final String BASE_URL = "/product";
 
-    @Autowired
+
     private final ProductService productService;
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping(value = "/create")
+    @Operation(summary = "Create a new product", description = "Creates a new product based on the provided request",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            required = true,
+            content = @io.swagger.v3.oas.annotations.media.Content(schema = @io.swagger.v3.oas.annotations.media.Schema(implementation = ProductRequest.class))))
+    @ApiResponse(responseCode = "201", description = "Product created successfully")
     public ResponseEntity<String> createProduct(@RequestBody ProductRequest productRequest) {
         try {
             productService.createProduct(productRequest);
